@@ -1,0 +1,27 @@
+galaxy_info:
+  author: Ripon Banik
+  description: Monitoring Metrics and Logs via Cloudwatch Agent
+  company: Lyrics Pvt Ltd
+  license: MIT
+  min_ansible_version: 2.6.0
+
+  platforms:
+  - name: EL
+    versions:
+     - 7
+     - 6
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+  - name: windows
+    version:
+      - 2012
+      - 2016
+
+  galaxy_tags:
+    - aws
+    - cloudwatch
+    - agent
+
+dependencies: []

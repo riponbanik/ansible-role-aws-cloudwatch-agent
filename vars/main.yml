@@ -1,0 +1,4 @@
+---
+aws_cw_root: /opt/aws/amazon-cloudwatch-agent
+aws_cw_conf: /opt/aws/amazon-cloudwatch-agent/etc/
+aws_cw_agent_service: amazon-cloudwatch-agent

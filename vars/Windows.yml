@@ -1,0 +1,5 @@
+---
+aws_cw_root: 'C:/Program Files/Amazon/AmazonCloudWatchAgent'
+aws_cw_conf: 'C:/ProgramData/Amazon/AmazonCloudWatchAgent'
+aws_cw_agent_service: AmazonCloudWatchAgent
+aws_cw_config_template_path: 'agent-config-windows.json.j2'

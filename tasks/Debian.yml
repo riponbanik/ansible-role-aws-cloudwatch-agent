@@ -1,0 +1,17 @@
+---
+- name: Get CPU architecture
+  command: getconf LONG_BIT
+  register: cpu_arch
+  changed_when: False
+  check_mode: no
+
+- name: Change URL destination for 32bit arch
+  set_fact:
+    url: '386'
+  when: cpu_arch.stdout == '32'
+
+- name: Install rpm file for Debian Family
+  apt:
+    name: "https://s3.amazonaws.com/amazoncloudwatch-agent/{{ ansible_os_family | lower }}/{{ url }}/latest/amazon-cloudwatch-agent.deb"
+    state: present
+  when: ansible_os_family == 'Debian'

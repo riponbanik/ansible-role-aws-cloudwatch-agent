@@ -1,0 +1,6 @@
+---
+- name: Install Package
+  win_package:
+    path: "https://s3.amazonaws.com/amazoncloudwatch-agent/{{ ansible_os_family | lower }}/amd64/latest/amazon-cloudwatch-agent.msi"
+    creates_service: '{{ aws_cw_agent_service }}'
+

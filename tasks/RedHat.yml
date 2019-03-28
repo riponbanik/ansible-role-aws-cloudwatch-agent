@@ -1,0 +1,6 @@
+---
+- name: Install rpm file for Redhat Family
+  yum:
+    name: "https://s3.amazonaws.com/amazoncloudwatch-agent/{{ ansible_os_family | lower }}/amd64/latest/amazon-cloudwatch-agent.rpm"
+    state: present
+  when: ansible_os_family == 'RedHat'

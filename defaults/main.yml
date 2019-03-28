@@ -1,0 +1,13 @@
+---
+aws_cw_region: ap-southeast-2
+aws_cw_agent_conf: amazon-cloudwatch-agent.json
+aws_cw_package_path: https://s3.amazonaws.com/amazoncloudwatch-agent/
+aws_cw_config_template_path: 'agent-config.json.j2'
+aws_cw_namespace: CWAgent
+aws_cw_collection_interval: 60
+aws_cw_logfiles: []
+aws_cw_windows_events: []
+aws_cw_log_debug: false
+aws_cw_disk_monitor_paths:
+  - "/"
+
