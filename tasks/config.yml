@@ -4,7 +4,7 @@
       - name: Set Default Profile
         template:
           src: "{{ aws_cw_agent_profile_template }}"
-          dest: "{{ aws_cw_agent_profile_path }}/.aws/credentials"
+          dest: "{{ aws_cw_agent_profile_path }}/credentials"
         tags:
           - profile
       - name: Set Default Config for Profile
