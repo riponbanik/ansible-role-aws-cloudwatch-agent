@@ -4,24 +4,25 @@
       - name: deploy agent configuration
         template:
           src: "{{ item }}"
-          dest: "{{ aws_cw_root }}/etc/amazon-cloudwatch-agent.json"
+          dest: "{{ aws_cw_root }}/amazon-cloudwatch-agent.json"
           mode: 0644
         with_first_found:
           - files:
               - "{{ aws_cw_config_template_path }}"
         tags:
-          - config
-        notify: restart-cw-agent
+          - config        
+        register: config
 
       - name: start cloudwatch agent
         command: |
           ./amazon-cloudwatch-agent-ctl \
               -a fetch-config \
-              -m ec2 \
-              -c file:{{ aws_cw_root }}/etc/amazon-cloudwatch-agent.json \
+              -m {{ aws_cw_agent_type }} \
+              -c file:{{ aws_cw_root }}/amazon-cloudwatch-agent.json \
               -s
         args:
           chdir: "{{ aws_cw_root }}/bin"
+        when: config is changed
     when: ansible_os_family != "Windows"
 
   - name: Configure Windows Agent
@@ -29,21 +30,22 @@
       - name: deploy windows agent configuration
         template:
           src: "{{ item }}"          
-          dest: "{{ aws_cw_conf }}/amazon-cloudwatch-agent.json"
+          dest: "{{ aws_cw_root }}/amazon-cloudwatch-agent.json"
         with_first_found:
           - files:
               - "{{ aws_cw_config_template_path }}"
         tags:
-          - config
-        notify: restart-cw-agent-windows
+          - config        
+        register: config
 
       - name: start windows cloudwatch agent
         win_command: |
           powershell.exe ./amazon-cloudwatch-agent-ctl.ps1 \
               -a fetch-config \
-              -m ec2 \
-              -c file:{{ aws_cw_conf }}/amazon-cloudwatch-agent.json \
+              -m {{ aws_cw_agent_type }} \
+              -c file:'{{ aws_cw_root }}/amazon-cloudwatch-agent.json' \
               -s
         args:
           chdir: "{{ aws_cw_root }}"
+        when: config is changed
     when: ansible_os_family == "Windows"

@@ -1,5 +1,6 @@
 ---
 aws_cw_region: ap-southeast-2
+aws_cw_agent_type: 'ec2'
 aws_cw_agent_conf: amazon-cloudwatch-agent.json
 aws_cw_package_path: https://s3.amazonaws.com/amazoncloudwatch-agent/
 aws_cw_config_template_path: 'agent-config.json.j2'

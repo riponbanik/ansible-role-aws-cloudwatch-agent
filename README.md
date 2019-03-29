@@ -41,6 +41,10 @@ Enable Debug Log
 aws_cw_log_debug: true
 ```
 
+Configuration for On-Prem - Requires to create default AWS profile e.g. aws configure --profile AmazonCloudWatchAgent
+```
+aws_cw_agent_type: onPremise
+```
 ## Dependencies
 
 None.
