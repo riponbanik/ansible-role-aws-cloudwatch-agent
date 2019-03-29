@@ -10,12 +10,12 @@
 #    shared_credential_file = "{file_name}"
 
 
-{% if shared_credential_profile or shared_credential_file %}
+{% if aws_profile or aws_profile_path %}
 [credentials]
-  {% if shared_credential_profile %} 
+  {% if aws_profile %} 
     shared_credential_profile = "{{ aws_profile }}"
   {% endif %}  
-  {% if shared_credential_file %}  
+  {% if aws_profile_path %}  
     shared_credential_file = "{{ aws_profile_path }}"
   {% endif %}
 {% endif %}
