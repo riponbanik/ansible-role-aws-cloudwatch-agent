@@ -1,11 +1,5 @@
 ---
 
-# Check the Architecture of OS
-# - name: Must be 64-bit
-#   fail:
-#     msg: "This role is intended for use only 64-bit"
-#   when: (ansible_architecture != 'x86_64')
-
 # Include variables and define needed variables.
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"

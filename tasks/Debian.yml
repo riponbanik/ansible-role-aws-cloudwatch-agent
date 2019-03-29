@@ -1,17 +1,13 @@
 ---
-- name: Get CPU architecture
-  command: getconf LONG_BIT
-  register: cpu_arch
-  changed_when: False
-  check_mode: no
+# Check the Architecture of OS
+- name: Must be 64-bit
+  fail:
+    msg: "This role is intended for use only 64-bit"
+  when: (ansible_architecture != 'x86_64')
 
-- name: Change URL destination for 32bit arch
-  set_fact:
-    url: '386'
-  when: cpu_arch.stdout == '32'
-
-- name: Install rpm file for Debian Family
-  apt:
-    name: "https://s3.amazonaws.com/amazoncloudwatch-agent/{{ ansible_os_family | lower }}/{{ url }}/latest/amazon-cloudwatch-agent.deb"
+# Install the pacakge
+- name: Install deb file for Debian Family
+  yum:
+    name: "https://s3.amazonaws.com/amazoncloudwatch-agent/{{ ansible_os_family | lower }}/amd64/latest/amazon-cloudwatch-agent.deb"
     state: present
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'RedHat'

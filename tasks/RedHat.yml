@@ -1,4 +1,11 @@
 ---
+# Check the Architecture of OS
+- name: Must be 64-bit
+  fail:
+    msg: "This role is intended for use only 64-bit"
+  when: (ansible_architecture != 'x86_64')
+
+# Install the pacakge
 - name: Install rpm file for Redhat Family
   yum:
     name: "https://s3.amazonaws.com/amazoncloudwatch-agent/{{ ansible_os_family | lower }}/amd64/latest/amazon-cloudwatch-agent.rpm"
