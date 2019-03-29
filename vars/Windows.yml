@@ -5,5 +5,6 @@ aws_cw_agent_service: AmazonCloudWatchAgent
 aws_cw_config_template_path: 'agent-config-windows.json.j2'
 
 aws_cw_agent_profile_template: 'agent-profile.j2'
-aws_cw_agent_profile_path: 'c:/users/Administrator'
+aws_cw_agent_profile_path: 'c:/windows/temp'
 aws_cw_agent_common_template: 'common-config-windows.toml.j2'
+shared_credential_file: 'c:/windows/temp/.aws/credentials'
