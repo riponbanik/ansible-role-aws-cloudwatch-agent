@@ -1,4 +1,23 @@
 ---
+  - name: Configure Profile for non ec2
+    block:
+      - name: Set Default Profile
+        template:
+          src: "{{ aws_cw_agent_profile_template }}"
+          dest: "{{ aws_cw_agent_profile_path }}/.aws/credentials"
+        tags:
+          - profile
+      - name: Set Default Config for Profile
+        template:
+          src: "{{ item }}"
+          dest: "{{ aws_cw_conf }}/common-config.toml"
+        with_first_found:
+          - files:
+              - "{{ aws_cw_agent_common_template }}"
+        tags:
+          - config
+    when: aws_cw_agent_type !='ec2'
+
   - name: Configure Nix Agent
     block:
       - name: deploy agent configuration
@@ -10,7 +29,7 @@
           - files:
               - "{{ aws_cw_config_template_path }}"
         tags:
-          - config        
+          - config
         register: config
 
       - name: start cloudwatch agent
@@ -29,13 +48,13 @@
     block:
       - name: deploy windows agent configuration
         template:
-          src: "{{ item }}"          
+          src: "{{ item }}"
           dest: "{{ aws_cw_root }}/amazon-cloudwatch-agent.json"
         with_first_found:
           - files:
               - "{{ aws_cw_config_template_path }}"
         tags:
-          - config        
+          - config
         register: config
 
       - name: start windows cloudwatch agent

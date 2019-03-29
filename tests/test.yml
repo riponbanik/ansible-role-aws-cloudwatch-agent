@@ -8,4 +8,5 @@
       changed_when: false
 
   roles:
-    - role_under_test
+    - role: role_under_test
+      aws_cw_agent_type: 'onPremise'

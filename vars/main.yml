@@ -2,3 +2,7 @@
 aws_cw_root: /opt/aws/amazon-cloudwatch-agent
 aws_cw_conf: /opt/aws/amazon-cloudwatch-agent/etc/
 aws_cw_agent_service: amazon-cloudwatch-agent
+
+aws_cw_agent_profile_template: 'agent-profile.j2'
+aws_cw_agent_profile_path: '/root'
+aws_cw_agent_common_template: 'common-config-windows.toml.j2'

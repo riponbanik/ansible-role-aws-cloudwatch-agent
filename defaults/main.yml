@@ -12,3 +12,14 @@ aws_cw_log_debug: false
 aws_cw_disk_monitor_paths:
   - "/"
 
+# cred
+aws_access_key: ''
+aws_secret_key: ''
+aws_region: 'ap-southeast-2'
+shared_credential_profile: ''
+shared_credential_file: ''
+
+# proxy
+proxy_url: 
+no_proxy:
+
