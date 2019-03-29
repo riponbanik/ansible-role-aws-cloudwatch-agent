@@ -16,8 +16,8 @@ aws_cw_disk_monitor_paths:
 aws_access_key: ''
 aws_secret_key: ''
 aws_region: 'ap-southeast-2'
-shared_credential_profile: ''
-shared_credential_file: ''
+aws_profile: ''
+aws_profile_path: ''
 
 # proxy
 proxy_url: 
