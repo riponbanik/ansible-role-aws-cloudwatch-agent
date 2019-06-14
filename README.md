@@ -1,6 +1,6 @@
-Ansible role to install and configure AWS Systems Manager Agent on both Windows and Linux
+Ansible role to install and configure AWS Cloudwatch Agent on both Windows and Linux
 
-[![Build Status](https://travis-ci.org/riponbanik/ansible-role-aws-ssm-agent.svg?branch=master)](https://travis-ci.org/riponbanik/ansible-role-aws-ssm-agent)
+[![Build Status](https://travis-ci.org/riponbanik/ansible-role-aws-cloudwatch-agent.svg?branch=master)](https://travis-ci.org/riponbanik/ansible-role-aws-cloudwatch-agent)
 
 ## Requirements
 
@@ -10,35 +10,43 @@ None.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-
-AWS allows monitoring windows metrics and logs via cloudwatch plugin - disabled by default
+Windows EventLog Monitoring
 ```
-cloudwatch_monitoring: false
-cloudwatch_namespace: 'Windows/Default'
-cloudwatch_log_group: 'Default-Log-Group'
-
-application_event_log_level: 3
-system_event_log_level: 3
-security_event_log_level: 1
-```
-
-Prevent download and upgrade of the package if not changed 
-```
-force_upgrade: no
+aws_cw_windows_events: 
+	- name: 'System'
+	  levels: ['ERROR', 'CRITICAL']
+	  format: 'text'
+	  log_group: 'Windows/System'            
+	- name: 'Application'
+	  levels: ['ERROR']
+	  format: 'text'
+	  log_group: 'Windows/Application' 
 ```
 
+Log files Monitoring
+```
+aws_cw_logfiles
+ - path: /var/log/auth.log
+   timestamp_format: "%b %d %H:%M:%S"
+   log_group: "auth"
+```	 
+   
 Allows to use custom cloudwatch template e.g. the following can be put same level as the playbook
 ```
-aws_ssm_config_template_path: 'templates/CloudwatchWindowsPlugin.json'
+aws_cw_config_template_path: 'templates/CloudwatchConfig.json'
+
+```
+Enable Debug Log
+```
+aws_cw_log_debug: true
 ```
 
-Activation for Multi-Accout or On-Prem setup
+Configuration for On-Prem - Requires to create default AWS profile with access and secret key
 ```
-aws_ssm_activation_code: 1234567890
-aws_ssm_activation_id: 1234567890
-ws_ssm_ec2_region: ap-southeast-2
+aws_cw_agent_type: onPremise
+aws_profie: AmazonCloudWatchAgent
+aws_profile_path: '/tmp/credentials'
 ```
-
 ## Dependencies
 
 None.
@@ -47,7 +55,7 @@ None.
 
     - hosts: all
       roles:
-        - { role: riponbanik.aws-ssm-agent }
+        - { role: riponbanik.aws-cloudwatch-agent }
 
 ## License
 
@@ -55,4 +63,4 @@ MIT / BSD
 
 ## Author Information
 
-This role was created in 2018 by [Ripon Banik ](https://www.linkedin.com/in/ripon-banik-79956b23/)
+This role was created in 2019 by [Ripon Banik ](https://www.linkedin.com/in/ripon-banik-79956b23/)
