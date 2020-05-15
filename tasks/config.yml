@@ -23,7 +23,7 @@
       - name: deploy agent configuration
         template:
           src: "{{ item }}"
-          dest: "{{ aws_cw_root }}/amazon-cloudwatch-agent.json"
+          dest: "{{ aws_cw_conf }}/amazon-cloudwatch-agent.json"
           mode: 0644
         with_first_found:
           - files:
@@ -37,7 +37,7 @@
           ./amazon-cloudwatch-agent-ctl \
               -a fetch-config \
               -m {{ aws_cw_agent_type }} \
-              -c file:{{ aws_cw_root }}/amazon-cloudwatch-agent.json \
+              -c file:{{ aws_cw_conf }}/amazon-cloudwatch-agent.json \
               -s
         args:
           chdir: "{{ aws_cw_root }}/bin"
